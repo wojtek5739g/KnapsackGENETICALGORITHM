@@ -1,8 +1,9 @@
 import numpy as np
+import random
 
 class Model:
     city_coordinates = [] # [(x,y), ...]
-    population = [] #[[1,2,3,...],...]
+    population = [] #[[1,2,3,...], [3, 7, 6, ...], ...]
     def __init__(self, city_coordinates, population):
         self._city_coordinates = city_coordinates
         self._population = population
@@ -13,16 +14,25 @@ class Model:
         return np.sqrt((x2-x1)**2 + (y2-y1)**2)
 
     def get_city_coordinates(self):
-        return city_coordinates
+        return self._city_coordinates
 
     def get_population(self):
-        return population
+        return self._population
 
     def fitnessFunction(self, specimen):
         ret = 0
         for city1, city2 in zip(specimen[:-1], specimen[1:]):
-            ret += self.distanceFunction(self.city_coordinates[city1], self.city_coordinates[city2])
-        return 1/ret
+            ret += self.distanceFunction(self.get_city_coordinates()[city1], self.get_city_coordinates()[city2])
+        return ret
+
+def main():
+    print('x')
+    model = Model([(2, 3), (3, 3), (5, 5)], [[1, 2], [3, 2, 5, 4, 1], [2, 7, 5, 3, 4]])
+
+    print(model.fitnessFunction(model.get_population()[0]))
+
+if __name__ == "__main__":
+    main()
 
 
 
