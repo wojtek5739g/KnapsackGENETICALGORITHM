@@ -26,10 +26,10 @@ class Model:
         return ret
 
 def main():
-    print('x')
-    model = Model([(2, 3), (3, 3), (5, 5)], [[1, 2], [3, 2, 5, 4, 1], [2, 7, 5, 3, 4]])
-
-    print(model.fitnessFunction(model.get_population()[0]))
+    # model = Model([(2, 3), (3, 3), (5, 5)], [[0, 1], [3, 2, 5, 4, 1], [2, 7, 5, 3, 4]])
+    # value = model.fitnessFunction(model.get_population()[0])
+    # assert value == 1
+    pass
 
 if __name__ == "__main__":
     main()
