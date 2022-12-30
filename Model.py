@@ -25,14 +25,7 @@ class Model:
             ret += self.distanceFunction(self.get_city_coordinates()[city1], self.get_city_coordinates()[city2])
         return ret
 
-def main():
-    # model = Model([(2, 3), (3, 3), (5, 5)], [[0, 1], [3, 2, 5, 4, 1], [2, 7, 5, 3, 4]])
-    # value = model.fitnessFunction(model.get_population()[0])
-    # assert value == 1
-    pass
 
-if __name__ == "__main__":
-    main()
 
 
 
