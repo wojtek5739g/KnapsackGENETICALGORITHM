@@ -36,7 +36,7 @@ class Model:
     def fitness_function(self, specimen):
         ret = 0
         for city1, city2 in zip(specimen[:-1], specimen[1:]):
-            ret += self.distanceFunction(self.get_city_coordinates()[city1], self.get_city_coordinates()[city2])
+            ret += self.distance_function(self.get_city_coordinates()[city1], self.get_city_coordinates()[city2])
         return ret
 
 
