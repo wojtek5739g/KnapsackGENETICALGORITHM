@@ -85,6 +85,8 @@ class Model:
         for i in range(0,len(self._population), 2):
             if random.uniform(0,1) < self._crossover_coefficient:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
+        
+        
     def get_best_specimen(self):
         best = 0
         best_fitness = -1
