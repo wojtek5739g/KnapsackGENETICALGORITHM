@@ -70,6 +70,24 @@ class Model:
                     specimen_b[i] = doubles_a[n_changed]
                     n_changed += 1
         return (specimen_a, specimen_b)
+    def create_offspring(self):
+        fitness_index = [self.fitness_function(specimen) for specimen in self._population]
+        max_value = sum(fitness_index)
+        selected = []
+        for i in range(len(self._population)):
+            val = random.uniform(0,max_value)
+            for j, weight in reversed(fitness_index):
+                val-=weight
+                if val <= 0:
+                    selected.append(len(fitness_index) - j - 1)
+                    break
+        self._population = [self._population[i] for i in selected]
+        for i in range(0,len(self._population), 2):
+            if random.uniform(0,1) < self._crossover_coefficient:
+                self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
+
+
+
 
 
 
