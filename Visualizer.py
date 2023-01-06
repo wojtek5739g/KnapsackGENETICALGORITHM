@@ -8,8 +8,6 @@ def visualise_specimen(city_coordinates,specimen):
     plt.xlabel("x")
     plt.ylabel("y")
     city_coordinates2 = np.transpose(np.array(city_coordinates))
-    print(city_coordinates2)
-
     i = 0
     for j in specimen:
         plt.text(city_coordinates[j][0],city_coordinates[j][1],f"{i}", size = 22)
@@ -25,14 +23,14 @@ def visualise_specimen(city_coordinates,specimen):
 
 def plot_progress(city_coordinates, best_specimens):
     finess_function_values = []
-    model = Model(city_coordinates,[],0)
+    model = Model(city_coordinates,[],0,0)
     for specimen in best_specimens:
         finess_function_values.append(model.fitness_function(specimen))
     plt.figure()
     plt.xlabel("iteracja")
     plt.ylabel("funkcja dopasowania")
     plt.title("Zmiana dopasowania najlepszego osobnika")
-    plt.plot(np.arange(0,len(finess_function_values), 1))
+    plt.plot(np.arange(0,len(finess_function_values),1), finess_function_values)
     plt.show()
 
     
