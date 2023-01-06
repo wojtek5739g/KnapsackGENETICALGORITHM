@@ -19,14 +19,14 @@ class Model:
 
     def generate_population(self,N):
         sample = [i for i in range(len(self._city_coordinates))]
-        self._population = [random.shuffle(sample) for _ in range(N)]
+        self._population = [random.sample(sample, len(sample)) for _ in range(N)]
 
     def mutate(self):
         for i,specimen in enumerate(self._population):
             if random.uniform(0,1) < self._mutation_coefficient:
-                a = random.randint(0,len(specimen))
-                b = random.randint(0,len(specimen))
-                self._population[i,a],  self._population[i,b] = self._population[i,b],  self._population[i,a]
+                a = random.randrange(0,len(specimen))
+                b = random.randrange(0,len(specimen))
+                self._population[i][a],  self._population[i][b] = self._population[i][b],  self._population[i][a]
 
     def get_city_coordinates(self):
         return self._city_coordinates
@@ -70,13 +70,14 @@ class Model:
                     specimen_b[i] = doubles_a[n_changed]
                     n_changed += 1
         return (specimen_a, specimen_b)
+        
     def create_offspring(self):
         fitness_index = [self.fitness_function(specimen) for specimen in self._population]
         max_value = sum(fitness_index)
         selected = []
         for i in range(len(self._population)):
             val = random.uniform(0,max_value)
-            for j, weight in reversed(fitness_index):
+            for j, weight in enumerate(reversed(fitness_index)):
                 val-=weight
                 if val <= 0:
                     selected.append(len(fitness_index) - j - 1)
@@ -86,7 +87,7 @@ class Model:
             if random.uniform(0,1) < self._crossover_coefficient:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
         
-        
+
     def get_best_specimen(self):
         best = 0
         best_fitness = -1
