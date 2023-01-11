@@ -87,6 +87,24 @@ class Model:
             if random.uniform(0,1) < self._crossover_coefficient:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
         
+    def create_offspring_elitism(self):
+        fitness_index = [self.fitness_function(specimen) for specimen in self._population]
+        sorted_fitness_index = sorted(fitness_index)
+        best = [self._population[np.where(fitness_index == sorted_fitness_index[i])[0][0]] for i in range(10)]
+        max_value = sum(fitness_index)
+        selected = []
+        for i in range(len(self._population)-10):
+            val = random.uniform(0,max_value)
+            for j, weight in enumerate(reversed(fitness_index)):
+                val-=weight
+                if val <= 0:
+                    selected.append(len(fitness_index) - j - 1)
+                    break
+        self._population = [self._population[i] for i in selected]
+        self._population.extend(best)
+        for i in range(0,len(self._population), 2):
+            if random.uniform(0,1) < self._crossover_coefficient:
+                self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
 
     def get_best_specimen(self):
         best = 0
