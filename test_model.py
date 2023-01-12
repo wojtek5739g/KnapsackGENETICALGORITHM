@@ -12,3 +12,7 @@ def test_progress_visualization():
 def test_crossover():
     model = Model([(0, 2), (5, 4), (120, 4), (56, 42),(10, 2), (20, 4), (30, 4), (40, 42)], [[0, 1,2,3], [1, 2,0,3]],0,0)
     print(model.crossover(model._population[0], model._population[1]))
+
+def test_distance():
+    model = Model([(-1,-1),(1,1),(-1,1),(1,-1)], [[0,1,2,3]], 0,0)
+    print(1/model.fitness_function(model._population[0]))
