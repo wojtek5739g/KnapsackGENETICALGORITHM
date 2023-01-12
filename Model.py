@@ -38,7 +38,7 @@ class Model:
         ret = 0
         for city1, city2 in zip(specimen[:-1], specimen[1:]):
             ret += self.distance_function(self.get_city_coordinates()[city1], self.get_city_coordinates()[city2])
-        return ret
+        return (1/ret)**3
 
     def crossover(self, specimen_a, specimen_b):
         a = random.randint(0,len(specimen_a))
@@ -89,8 +89,9 @@ class Model:
         
     def create_offspring_elitism(self):
         fitness_index = [self.fitness_function(specimen) for specimen in self._population]
-        sorted_fitness_index = sorted(fitness_index)
-        best = [self._population[np.where(fitness_index == sorted_fitness_index[i])[0][0]] for i in range(10)]
+        sorted_fitness_index = sorted(fitness_index)[::-1]
+        #best = [self._population[np.where(fitness_index == sorted_fitness_index[i])[0][0]] for i in range(10)]
+        best = [self._population[np.where(fitness_index == sorted_fitness_index[0])[0][0]] for i in range(10)]
         max_value = sum(fitness_index)
         selected = []
         for i in range(len(self._population)-10):
