@@ -30,7 +30,7 @@ def plot_progress(city_coordinates, best_specimens):
     plt.xlabel("iteracja")
     plt.ylabel("funkcja dopasowania")
     plt.title("Zmiana dopasowania najlepszego osobnika")
-    plt.plot(np.arange(0,len(finess_function_values),1), finess_function_values)
+    plt.plot(np.arange(0,len(finess_function_values),1), finess_function_values, marker = "o")
     plt.show()
 
     
