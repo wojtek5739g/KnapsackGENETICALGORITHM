@@ -25,12 +25,14 @@ def GDAlgorithmComp(cities_coordinates):
         visited = set()
         visited.add(i_start)
         for i in range(len(cities_coordinates)):
-            distances = sorted([model.distance_function(location,j) for j in cities_coordinates])
-            for j, j_dist in enumerate(distances):
-                if j not in visited:
-                    specimen = np.append(specimen, j)
-                    visited.add(j)
-                    location = cities_coordinates[j]
+            distances = [model.distance_function(location,j) for j in cities_coordinates]
+            distances_sorted = sorted(distances)
+            for j, j_dist in enumerate(distances_sorted):
+                k = np.where(distances == j_dist)[0][0]
+                if k not in visited:
+                    specimen = np.append(specimen, k)
+                    visited.add(k)
+                    location = cities_coordinates[k]
                     break
         print(specimen)
         if model.fitness_function(specimen) > model.fitness_function(best_specimen):
