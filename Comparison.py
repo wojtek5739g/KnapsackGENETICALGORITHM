@@ -38,7 +38,7 @@ def main(argv):
     comparison_fitness_function_plot(args.num_of_launches, best_specimensGEN, best_specimensGA,
                                     args.num_of_cities, args.num_of_individuals, args.num_of_iterations,
                                     args.mutation_coef, args.crossover_coef, args.selection, args.tournament_size)
-    comparison_distance_plot(args.num_of_launches, best_specimensGEN, best_specimensGA,
+    comparison_distance_plot(args.num_of_launches, best_specimensDistanceGEN, best_specimensDistanceGA,
                             args.num_of_cities, args.num_of_individuals, args.num_of_iterations,
                             args.mutation_coef, args.crossover_coef, args.selection, args.tournament_size)
 
