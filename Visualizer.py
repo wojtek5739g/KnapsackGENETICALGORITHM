@@ -52,16 +52,18 @@ def comparison_fitness_function_plot(num_of_launches, best_specimensGEN, best_sp
     ax.plot(launches, best_specimensGA, color='blue', label='Greedy Algorithm')
 
     if type(tournament_size) == None:
-        text = f'Number of cities = {num_of_cities}\tNumber of specimen: {num_of_individuals}\t \
-                Number of iterations: {num_of_iterations}\tMutation coefficient: {mutation_coef}\n \
-                Crossover coefficient: {crossover_coef}\nSelection type: {selection}'
+        text = f'Number of cities = {num_of_cities}\nNumber of specimen: {num_of_individuals}\n'\
+                f'Number of iterations: {num_of_iterations}\nMutation coefficient: {mutation_coef}\n'\
+                f'Crossover coefficient: {crossover_coef}\nSelection type: {selection}'
     else:
-        text = f'Number of cities = {num_of_cities}\tNumber of specimen: {num_of_individuals}\t\
-                Number of iterations: {num_of_iterations}\tMutation coefficient: {mutation_coef}\n \
-                Crossover coefficient: {crossover_coef}\n Selection type: {selection}\n \
-                Tournament size: {tournament_size}'
+        text = f'Number of cities = {num_of_cities}\nNumber of specimen: {num_of_individuals}\n'\
+                f'Number of iterations: {num_of_iterations}\nMutation coefficient: {mutation_coef}\n'\
+                f'Crossover coefficient: {crossover_coef}\nSelection type: {selection}\n'\
+                f'Tournament size: {tournament_size}'
 
+    #fig.text(x = 0.2,y = 0.75,s = text,bbox={'facecolor': 'green', 'alpha': 0.5, 'pad': 10})
     plt.title(text)
+    plt.legend()
 
     plt.show()
 
@@ -76,26 +78,23 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
     ax.minorticks_on()
     ax.grid(which='major', color='#DDDDDD', linewidth=1)
     ax.grid(which='minor', color='#DDDDDD', linestyle=':', linewidth=0.8)
-
     launches = np.arange(1, num_of_launches+1, 1)
     ax.plot(launches, best_specimensGEN, color='green', label='Genetic Algorithm')
     ax.plot(launches, best_specimensGA, color='blue', label='Greedy Algorithm')
 
     if type(tournament_size) == None:
-        text = f'Number of cities = {num_of_cities}\tNumber of specimen: {num_of_individuals}\t \
-                Number of iterations: {num_of_iterations}\tMutation coefficient: {mutation_coef}\n \
-                Crossover coefficient: {crossover_coef}\nSelection type: {selection}'
+        text = f'Number of cities = {num_of_cities}\nNumber of specimen: {num_of_individuals}\n'\
+                f'Number of iterations: {num_of_iterations}\nMutation coefficient: {mutation_coef}\n'\
+                f'Crossover coefficient: {crossover_coef}\nSelection type: {selection}'
     else:
-        text = f'Number of cities = {num_of_cities}\tNumber of specimen: {num_of_individuals}\t\
-                Number of iterations: {num_of_iterations}\tMutation coefficient: {mutation_coef}\n \
-                Crossover coefficient: {crossover_coef}\n Selection type: {selection}\n \
-                Tournament size: {tournament_size}'
+        text = f'Number of cities = {num_of_cities}\nNumber of specimen: {num_of_individuals}\n'\
+                f'Number of iterations: {num_of_iterations}\nMutation coefficient: {mutation_coef}\n'\
+                f'Crossover coefficient: {crossover_coef}\nSelection type: {selection}\n'\
+                f'Tournament size: {tournament_size}'
 
     # ax.text(st.mean(launches), -st.mean(best_specimensGEN+best_specimensGA), text, fontsize=10)
-    plt.title(text)
-
+    #fig.text(x = 0.2,y = 0.75,s = text,bbox={'facecolor': 'green', 'alpha': 0.5, 'pad': 10})
     ax.legend()
-
     plt.show()
 
 
