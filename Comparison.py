@@ -32,9 +32,9 @@ def main(argv):
         GAbestSpecimen = GeneticAlgorithmComp(GAmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, args.tournament_size, args.selection)
         GDbestSpecimen = GDAlgorithmComp(GDmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations)
         best_specimensGEN.append(GAbestSpecimen)
-        best_specimensDistanceGEN.append(1/GAbestSpecimen**(1/3))
+        best_specimensDistanceGEN.append(1/GAbestSpecimen)
         best_specimensGA.append(GDbestSpecimen)
-        best_specimensDistanceGA.append(1/GDbestSpecimen**(1/3))
+        best_specimensDistanceGA.append(1/GDbestSpecimen)
     comparison_fitness_function_plot(args.num_of_launches, best_specimensGEN, best_specimensGA,
                                     args.num_of_cities, args.num_of_individuals, args.num_of_iterations,
                                     args.mutation_coef, args.crossover_coef, args.selection, args.tournament_size)
