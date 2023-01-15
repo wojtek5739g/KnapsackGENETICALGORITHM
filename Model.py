@@ -71,7 +71,7 @@ class Model:
                     n_changed += 1
         return (specimen_a, specimen_b)
 
-    def create_offspring(self):
+    def create_offspring_roulette(self):
         fitness_index = [self.fitness_function(specimen) for specimen in self._population]
         max_value = sum(fitness_index)
         selected = []
