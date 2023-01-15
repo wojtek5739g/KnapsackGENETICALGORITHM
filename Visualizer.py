@@ -27,11 +27,11 @@ def plot_progress(city_coordinates, best_specimens):
     fitness_function_values = []
     model = Model(city_coordinates,[],0,0)
     for specimen in best_specimens:
-        fitness_function_values.append(model.fitness_function(specimen))
+        fitness_function_values.append(1/model.fitness_function(specimen))
     plt.figure()
     plt.xlabel("iteracja")
-    plt.ylabel("funkcja dopasowania")
-    plt.title("Zmiana dopasowania najlepszego osobnika")
+    plt.ylabel("długość trasy")
+    plt.title("Zmiana długości trasy najlepszego osobnika")
     plt.plot(np.arange(0,len(fitness_function_values),1), fitness_function_values, marker = "o")
     plt.show()
 
