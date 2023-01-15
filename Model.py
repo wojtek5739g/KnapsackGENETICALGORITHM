@@ -22,7 +22,7 @@ class Model:
         self._population = np.array([random.sample(sample, len(sample)) for _ in range(N)])
 
     def mutate(self):
-        for i,specimen in enumerate(self._population[:-5]):
+        for i,specimen in enumerate(self._population):
             if random.uniform(0,1) < self._mutation_coefficient:
                 a = random.randrange(0,len(specimen))
                 b = random.randrange(0,len(specimen))
