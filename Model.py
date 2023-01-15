@@ -46,7 +46,6 @@ class Model:
         temp = np.copy(specimen_a[a:b])
         specimen_a[a:b] = specimen_b[a:b]
         specimen_b[a:b] = temp
-        #specimen_a[a:b], specimen_b[a:b] = specimen_b[a:b], specimen_a[a:b]
         set_a = set()
         set_b = set()
         doubles_a = []
@@ -61,7 +60,6 @@ class Model:
             else:
                 doubles_b.append(j)
         n_changed = 0
-        print(specimen_a, specimen_b, doubles_a, doubles_b)
         for i, val_i in enumerate(specimen_a):
             if i < a or i >= b:
                 if val_i in doubles_a:
