@@ -1,4 +1,5 @@
 from Model import Model
+import numpy as np
 from Generate_map import map_generation
 from Visualizer import visualise_specimen, plot_progress
 import sys
@@ -6,24 +7,24 @@ import argparse
 
 def GDAlgorithmComp(model, cities_coordinates, num_of_individuals, num_of_iterations):
     model.generate_population(num_of_individuals)
-    best_fits = [model.get_best_specimen()]
+    best_fits = np.array([model.get_best_specimen()])
     for i in range(num_of_iterations):
         model.generate_population(num_of_individuals)
         best_specimen = model.get_best_specimen()
-        best_fits.append(best_specimen)
-        print(f"iteration {i}: Distance: {1/model.fitness_function(best_specimen)**(1/3)}")
+        best_fits = np.append(best_fits, [best_specimen], axis = 0)
+        print(f"iteration {i}: Distance: {1/model.fitness_function(best_specimen)}")
     return model.fitness_function(best_fits[-1])
 
 def GDAlgorithm(num_of_cities, max_X_coord_value, max_Y_coord_value, num_of_individuals, num_of_iterations):
     cities_coordinates = map_generation(num_of_cities, max_X_coord_value, max_Y_coord_value)
     model = Model(cities_coordinates, [])
     model.generate_population(num_of_individuals)
-    best_fits = [model.get_best_specimen()]
+    best_fits = np.array([model.get_best_specimen()])
     for i in range(num_of_iterations):
         model.generate_population(num_of_individuals)
         best_specimen = model.get_best_specimen()
-        best_fits.append(best_specimen)
-        print(f"iteration {i}: Distance: {1/model.fitness_function(best_specimen)**(1/3)}")
+        best_fits = np.append(best_fits, [best_specimen], axis = 0)
+        print(f"iteration {i}: Distance: {1/model.fitness_function(best_specimen)}")
     visualise_specimen(cities_coordinates, best_fits[0])
     print(model.fitness_function(best_fits[0]))
     print(model.fitness_function(best_fits[-1]))
