@@ -26,11 +26,10 @@ def main(argv):
     best_specimensDistanceGA = [] #distance_values
     cities_coordinates = map_generation(args.num_of_cities, args.max_X_coord_value, args.max_Y_coord_value)
     GAmodel = Model(cities_coordinates, [], args.mutation_coef, args.crossover_coef, args.tournament_size)
-    GDmodel = Model(cities_coordinates, [])
     for i in range(args.num_of_launches):
         print(f"{i+1} Launch: ")
         GAbestSpecimen = GeneticAlgorithmComp(GAmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, args.tournament_size, args.selection)
-        GDbestSpecimen = GDAlgorithmComp(GDmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations)
+        GDbestSpecimen = GDAlgorithmComp(cities_coordinates)
         best_specimensGEN.append(GAbestSpecimen)
         best_specimensDistanceGEN.append(1/GAbestSpecimen)
         best_specimensGA.append(GDbestSpecimen)

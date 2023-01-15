@@ -94,6 +94,7 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
 
     # ax.text(st.mean(launches), -st.mean(best_specimensGEN+best_specimensGA), text, fontsize=10)
     #fig.text(x = 0.2,y = 0.75,s = text,bbox={'facecolor': 'green', 'alpha': 0.5, 'pad': 10})
+    plt.title(text)
     ax.legend()
     plt.show()
 
