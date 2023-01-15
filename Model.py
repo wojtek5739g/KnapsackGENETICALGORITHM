@@ -7,7 +7,7 @@ class Model:
     # _population = [] #[[1,2,3,...], [3, 7, 6, ...], ...]
     def __init__(self, city_coordinates, population, mutation_coefficient=0, crossover_coefficient=0, tournament_size=0):
         self._city_coordinates = city_coordinates
-        self._population = population
+        self._population = np.array(population)
         self._mutation_coefficient = mutation_coefficient
         self._crossover_coefficient = crossover_coefficient
         self._tournament_size = tournament_size
@@ -19,10 +19,10 @@ class Model:
 
     def generate_population(self, N):
         sample = [i for i in range(len(self._city_coordinates))]
-        self._population = [random.sample(sample, len(sample)) for _ in range(N)]
+        self._population = np.array([random.sample(sample, len(sample)) for _ in range(N)])
 
     def mutate(self):
-        for i,specimen in enumerate(self._population):
+        for i,specimen in enumerate(self._population[:-5]):
             if random.uniform(0,1) < self._mutation_coefficient:
                 a = random.randrange(0,len(specimen))
                 b = random.randrange(0,len(specimen))
@@ -38,12 +38,15 @@ class Model:
         ret = 0
         for city1, city2 in zip(specimen[:-1], specimen[1:]):
             ret += self.distance_function(self.get_city_coordinates()[city1], self.get_city_coordinates()[city2])
-        return (1/ret)**3
+        return (1/ret)
 
     def crossover(self, specimen_a, specimen_b):
         a = random.randint(0,len(specimen_a))
         b = random.randint(a,len(specimen_a))
-        specimen_a[a:b], specimen_b[a:b] = specimen_b[a:b], specimen_a[a:b]
+        temp = np.copy(specimen_a[a:b])
+        specimen_a[a:b] = specimen_b[a:b]
+        specimen_b[a:b] = temp
+        #specimen_a[a:b], specimen_b[a:b] = specimen_b[a:b], specimen_a[a:b]
         set_a = set()
         set_b = set()
         doubles_a = []
@@ -58,6 +61,7 @@ class Model:
             else:
                 doubles_b.append(j)
         n_changed = 0
+        print(specimen_a, specimen_b, doubles_a, doubles_b)
         for i, val_i in enumerate(specimen_a):
             if i < a or i >= b:
                 if val_i in doubles_a:
@@ -82,7 +86,7 @@ class Model:
                 if val <= 0:
                     selected.append(j)
                     break
-        self._population = [self._population[i] for i in selected]
+        self._population = np.array([self._population[i] for i in selected])
         for i in range(0,len(self._population), 2):
             if random.uniform(0,1) < self._crossover_coefficient:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
@@ -96,13 +100,13 @@ class Model:
         selected = []
         for i in range(len(self._population)-10):
             val = random.uniform(0,max_value)
-            for j, weight in enumerate(reversed(fitness_index)):
+            for j, weight in enumerate(fitness_index):
                 val-=weight
                 if val <= 0:
-                    selected.append(len(fitness_index) - j - 1)
+                    selected.append(j)
                     break
-        self._population = [self._population[i] for i in selected]
-        self._population.extend(best)
+        self._population = np.array([self._population[i] for i in selected])
+        self._population = np.concatenate((self._population, best), axis = 0)
         for i in range(0,len(self._population), 2):
             if random.uniform(0,1) < self._crossover_coefficient:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
@@ -129,17 +133,8 @@ class Model:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
 
     def get_best_specimen(self):
-        best = []
-        best_fitness = -1
-
         specimen_fitnessses = [self.fitness_function(i) for i in self._population]
         best = self._population[specimen_fitnessses.index(max(specimen_fitnessses))]
-        # for i in self._population:
-        #     fitness = self.fitness_function(i)
-        #     if fitness > best_fitness:
-        #         best_fitness = fitness
-        #         best = i
-        # print(best)
         return best
 
 
