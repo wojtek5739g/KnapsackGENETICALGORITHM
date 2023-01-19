@@ -4,6 +4,7 @@ from Visualizer import visualise_specimen, plot_progress
 from Generate_map import map_generation
 import sys
 import argparse
+from GDAlgorithm import GDAlgorithm
 
 def GeneticAlgorithmComp(model, cities_coordinates, num_of_individuals, num_of_iterations, mutation_coef, crossover_coef, tournament_size, selection):
     model.generate_population(num_of_individuals)
@@ -44,6 +45,9 @@ def GeneticAlgorithm(num_of_cities, max_X_coord_value, max_Y_coord_value, num_of
     print(f'Distance value of best fit of last generation (iteration):  {1/model.fitness_function(best_fits[-1])}')
     visualise_specimen(cities_coordinates, best_fits[-1])
     plot_progress(cities_coordinates, best_fits)
+    GA_specimen = GDAlgorithm(cities_coordinates)
+    print(1/model.fitness_function(GA_specimen))
+    visualise_specimen(cities_coordinates,GA_specimen)
 
 def main(argv):
     parser = argparse.ArgumentParser(description='Launch Genetic Algorithm')
