@@ -27,11 +27,11 @@ def plot_progress(city_coordinates, best_specimens):
     fitness_function_values = []
     model = Model(city_coordinates,[],0,0)
     for specimen in best_specimens:
-        fitness_function_values.append(model.fitness_function(specimen))
+        fitness_function_values.append(1/model.fitness_function(specimen))
     plt.figure()
     plt.xlabel("iteracja")
-    plt.ylabel("funkcja dopasowania")
-    plt.title("Zmiana dopasowania najlepszego osobnika")
+    plt.ylabel("długość trasy")
+    plt.title("Zmiana długości trasy najlepszego osobnika")
     plt.plot(np.arange(0,len(fitness_function_values),1), fitness_function_values, marker = "o")
     plt.show()
 
@@ -94,6 +94,7 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
 
     # ax.text(st.mean(launches), -st.mean(best_specimensGEN+best_specimensGA), text, fontsize=10)
     #fig.text(x = 0.2,y = 0.75,s = text,bbox={'facecolor': 'green', 'alpha': 0.5, 'pad': 10})
+    plt.title(text)
     ax.legend()
     plt.show()
 
