@@ -83,14 +83,14 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
     ax.plot(launches, best_specimensGA, color='blue', label='Greedy Algorithm')
 
     if type(tournament_size) == None:
-        text = f'Number of cities = {num_of_cities}\nNumber of specimen: {num_of_individuals}\n'\
-                f'Number of iterations: {num_of_iterations}\nMutation coefficient: {mutation_coef}\n'\
-                f'Crossover coefficient: {crossover_coef}\nSelection type: {selection}'
+        text = f'Liczba miast: {num_of_cities}\nPopulacja: {num_of_individuals}\n'\
+                f'Liczba iteracji: {num_of_iterations}\nWspółczynnik mutacji: {mutation_coef}\n'\
+                f'Współczynnik krzyżowania: {crossover_coef}\nRodzaj selekcji: {selection}'
     else:
-        text = f'Number of cities = {num_of_cities}\nNumber of specimen: {num_of_individuals}\n'\
-                f'Number of iterations: {num_of_iterations}\nMutation coefficient: {mutation_coef}\n'\
-                f'Crossover coefficient: {crossover_coef}\nSelection type: {selection}\n'\
-                f'Tournament size: {tournament_size}'
+        text = f'Liczba miast: {num_of_cities}\nPopulacja: {num_of_individuals}\n'\
+                f'Liczba iteracji: {num_of_iterations}\nWspółczynnik mutacji: {mutation_coef}\n'\
+                f'Współczynnik krzyżowania: {crossover_coef}\nRodzaj selekcji: {selection}\n'\
+                f'Rozmiar turnieju: {tournament_size}'
 
     # ax.text(st.mean(launches), -st.mean(best_specimensGEN+best_specimensGA), text, fontsize=10)
     #fig.text(x = 0.2,y = 0.75,s = text,bbox={'facecolor': 'green', 'alpha': 0.5, 'pad': 10})
