@@ -111,7 +111,7 @@ class Model:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
 
     def create_offspring_tournament(self):
-        new_population = []
+        new_population = np.empty((0,len(self._population[0])), int)
         for k in range(len(self._population)):
             idxs_of_chosen_ind = random.sample(range(len(self._population)), self._tournament_size)
             list_tournament = []
@@ -133,10 +133,11 @@ class Model:
             #     if (idx == len(list_tournament) and max_value==0):
             #         max_value = elem[1]
             #         max_index = elem[0]
-
-            new_population.append(self._population[list_tournament[0][0]])
+            #print( np.array(self._population[list_tournament[0][0]]))
+            new_population = np.append(new_population, np.array([self._population[list_tournament[0][0]]]), axis = 0)
+            
             # self._population[np.argmin([self.fitness_function(x) for x in self._population])] = self._population[max_index]
-
+        print(new_population[0])
         self._population = new_population
 
         for i in range(0,len(self._population), 2):
