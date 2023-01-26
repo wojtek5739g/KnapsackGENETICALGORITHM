@@ -112,7 +112,7 @@ class Model:
 
     def create_offspring_tournament(self):
         new_population = []
-        for _ in range(len(self._population)):
+        for k in range(len(self._population)):
             idxs_of_chosen_ind = random.sample(range(len(self._population)), self._tournament_size)
             list_tournament = []
             for i in idxs_of_chosen_ind:
@@ -120,20 +120,22 @@ class Model:
                 list_index_value.append(i)
                 list_index_value.append(self.fitness_function(self._population[i]))
                 list_tournament.append(list_index_value)
+
             max_value = 0
             max_index = 0
-            p = 0.02
+            p = 0.5
 
-            list_tournament = sorted(list_tournament, key=itemgetter(1))
-            for idx, elem in enumerate(list_tournament):
-                if (random.uniform(0, 1) < p*(1-p)**idx):
-                    max_value = elem[1]
-                    max_index = elem[0]
-                if (idx == len(list_tournament) and max_value==0):
-                    max_value = elem[1]
-                    max_index = elem[0]
+            list_tournament = sorted(list_tournament, key=itemgetter(1), reverse=True)
+            # for idx, elem in enumerate(list_tournament):
+            #     if (random.uniform(0, 1) < p*(1-p)**idx):
+            #         max_value = elem[1]
+            #         max_index = elem[0]
+            #     if (idx == len(list_tournament) and max_value==0):
+            #         max_value = elem[1]
+            #         max_index = elem[0]
 
-            new_population.append(self._population[max_index])
+            new_population.append(self._population[list_tournament[0][0]])
+            # self._population[np.argmin([self.fitness_function(x) for x in self._population])] = self._population[max_index]
 
         self._population = new_population
 
