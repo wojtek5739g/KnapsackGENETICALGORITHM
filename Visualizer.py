@@ -23,16 +23,25 @@ def visualise_specimen(city_coordinates,specimen):
     plt.scatter(city_coordinates2[0], city_coordinates2[1], color = "tab:green", s = 60)
     plt.show()
 
-def plot_progress(city_coordinates, best_specimens):
-    fitness_function_values = []
+def plot_progress(city_coordinates, best_specimens2, best_specimens3, best_specimens4):
+    fitness_function_values2 = []
+    fitness_function_values3 = []
+    fitness_function_values4 = []
     model = Model(city_coordinates,[],0,0)
-    for specimen in best_specimens:
-        fitness_function_values.append(1/model.fitness_function(specimen))
+    for specimen in best_specimens2:
+        fitness_function_values2.append(1/model.fitness_function(specimen))
+    for specimen in best_specimens3:
+        fitness_function_values3.append(1/model.fitness_function(specimen))
+    for specimen in best_specimens4:
+        fitness_function_values4.append(1/model.fitness_function(specimen))
     plt.figure()
     plt.xlabel("iteracja")
     plt.ylabel("długość trasy")
     plt.title("Zmiana długości trasy najlepszego osobnika")
-    plt.plot(np.arange(0,len(fitness_function_values),1), fitness_function_values, marker = "o")
+    plt.plot(np.arange(0,len(fitness_function_values2),1), fitness_function_values2, marker = "o", color='red', label='k=2')
+    plt.plot(np.arange(0,len(fitness_function_values3),1), fitness_function_values3, marker = "o", color='blue', label='k=3')
+    plt.plot(np.arange(0,len(fitness_function_values4),1), fitness_function_values4, marker = "o", color='green', label='k=4')
+    plt.legend()
     plt.show()
 
 def comparison_fitness_function_plot(num_of_launches, best_specimensGEN, best_specimensGA, num_of_cities, num_of_individuals,
@@ -41,7 +50,7 @@ def comparison_fitness_function_plot(num_of_launches, best_specimensGEN, best_sp
     Plotting comparison of best specimen of each launching of the program from two algorithms
     '''
     fig, ax = plt.subplots(figsize=(14, 10))
-    ax.set_ylabel('Index of launch')
+    ax.set_xlabel('Index of launch')
     ax.set_ylabel('fitness Function')
     ax.minorticks_on()
     ax.grid(which='major', color='#DDDDDD', linewidth=1)
@@ -73,7 +82,7 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
     Plotting comparison of best specimen of each launching of the program from two algorithms
     '''
     fig, ax = plt.subplots(figsize=(14, 10))
-    ax.set_ylabel('Index of launch')
+    ax.set_xlabel('Index of launch')
     ax.set_ylabel('Distance')
     ax.minorticks_on()
     ax.grid(which='major', color='#DDDDDD', linewidth=1)

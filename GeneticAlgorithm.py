@@ -22,8 +22,7 @@ def GeneticAlgorithmComp(model, cities_coordinates, num_of_individuals, num_of_i
         print(f"iteration {i}: Distance: {1/model.fitness_function(best_specimen)}")
     return model.fitness_function(best_fits[-1])
 
-def GeneticAlgorithm(num_of_cities, max_X_coord_value, max_Y_coord_value, num_of_individuals, num_of_iterations, mutation_coef, crossover_coef, tournament_size, selection):
-    cities_coordinates = map_generation(num_of_cities, max_X_coord_value, max_Y_coord_value)
+def GeneticAlgorithm(cities_coordinates, num_of_individuals, num_of_iterations, mutation_coef, crossover_coef, tournament_size, selection):
     model = Model(cities_coordinates, [], mutation_coef, crossover_coef, tournament_size)
     model.generate_population(num_of_individuals)
     best_fits = np.array([model.get_best_specimen()])
@@ -38,16 +37,18 @@ def GeneticAlgorithm(num_of_cities, max_X_coord_value, max_Y_coord_value, num_of
         best_specimen = model.get_best_specimen()
         best_fits = np.append(best_fits, [best_specimen], axis = 0)
         print(f"iteration {i}: Distance: {1/model.fitness_function(best_fits[i])}")
-    visualise_specimen(cities_coordinates, best_fits[0])
+    # visualise_specimen(cities_coordinates, best_fits[0])
     for i in best_fits:
         print(1/model.fitness_function(i))
     print(f'Distance value of best fit of first generation (iteration):  {1/model.fitness_function(best_fits[0])}')
     print(f'Distance value of best fit of last generation (iteration):  {1/model.fitness_function(best_fits[-1])}')
     visualise_specimen(cities_coordinates, best_fits[-1])
-    plot_progress(cities_coordinates, best_fits)
+    # plot_progress(cities_coordinates, best_fits)
+    print('Algorytm zachłanny: ')
     GA_specimen = GDAlgorithm(cities_coordinates)
     print(1/model.fitness_function(GA_specimen))
     visualise_specimen(cities_coordinates,GA_specimen)
+    return best_fits
 
 def main(argv):
     parser = argparse.ArgumentParser(description='Launch Genetic Algorithm')
@@ -61,7 +62,11 @@ def main(argv):
     parser.add_argument('selection', choices=['elitism', 'roulette', 'tournament'], type=str, help='Selection type')
     parser.add_argument('--tournament_size', type=int, nargs='?', const=0, help='Tournament size')
     args = parser.parse_args()
-    GeneticAlgorithm(args.num_of_cities, args.max_X_coord_value, args.max_Y_coord_value, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, args.tournament_size, args.selection)
+    cities_coordinates = map_generation(args.num_of_cities, args.max_X_coord_value, args.max_Y_coord_value)
+    bestfits2 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 2, args.selection)
+    bestfits3 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 3, args.selection)
+    bestfits4 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 4, args.selection)
+    plot_progress(cities_coordinates, bestfits2, bestfits3, bestfits4)
 
 if __name__ == "__main__":
     main(sys.argv)

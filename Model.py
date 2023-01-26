@@ -1,6 +1,7 @@
 import numpy as np
 import random
 from itertools import permutations
+from operator import itemgetter
 
 class Model:
     # _city_coordinates = [] # [(x,y), ...]
@@ -110,21 +111,31 @@ class Model:
                 self._population[i], self._population[i+1] = self.crossover(self._population[i], self._population[i+1])
 
     def create_offspring_tournament(self):
-        indexes_of_chosen_individuals = random.sample(range(len(self._population)), self._tournament_size)
-        # print(f"indexes_of_chosen_individuals = {indexes_of_chosen_individuals}")
-        chosen_individuals = [self._population[i] for i in random.sample(range(len(self._population)), self._tournament_size)]
-        # print(f"chosen_individuals = {chosen_individuals}")
-        values_of_chosen_individuals = [self.fitness_function(specimen) for specimen in chosen_individuals]
-        # print(f"values_of_chosen_individuals = {values_of_chosen_individuals}")
-        max_value_of_chosen_individuals = max(values_of_chosen_individuals)
-        # print(f"max_value_of_chosen_individuals = {max_value_of_chosen_individuals}")
-        individual_with_max_value_of_chosen_individuals = chosen_individuals[np.where(values_of_chosen_individuals == max_value_of_chosen_individuals)[0][0]]
-        individual_with_max_value_of_chosen_individuals = list(dict.fromkeys(individual_with_max_value_of_chosen_individuals))
-        # print(f'np.where: {np.where(values_of_chosen_individuals == max_value_of_chosen_individuals)}')
-        # print(f'invdividual with max_value_of_chosen_individuals = {individual_with_max_value_of_chosen_individuals}')
+        new_population = []
+        for _ in range(len(self._population)):
+            idxs_of_chosen_ind = random.sample(range(len(self._population)), self._tournament_size)
+            list_tournament = []
+            for i in idxs_of_chosen_ind:
+                list_index_value = []
+                list_index_value.append(i)
+                list_index_value.append(self.fitness_function(self._population[i]))
+                list_tournament.append(list_index_value)
+            max_value = 0
+            max_index = 0
+            p = 0.02
 
-        for i in indexes_of_chosen_individuals:
-            self._population[i] = individual_with_max_value_of_chosen_individuals
+            list_tournament = sorted(list_tournament, key=itemgetter(1))
+            for idx, elem in enumerate(list_tournament):
+                if (random.uniform(0, 1) < p*(1-p)**idx):
+                    max_value = elem[1]
+                    max_index = elem[0]
+                if (idx == len(list_tournament) and max_value==0):
+                    max_value = elem[1]
+                    max_index = elem[0]
+
+            new_population.append(self._population[max_index])
+
+        self._population = new_population
 
         for i in range(0,len(self._population), 2):
             if random.uniform(0,1) < self._crossover_coefficient:

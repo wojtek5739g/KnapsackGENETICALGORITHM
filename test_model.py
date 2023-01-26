@@ -7,6 +7,7 @@ def test_model():
 
 def test_specimen():
     visualise_specimen([(0, 2), (5, 4), (120, 4), (56, 42)], [3,1,2,0])
+
 def test_progress_visualization():
     plot_progress([(0, 2), (5, 4), (120, 4), (56, 42)], [[0,1,2,3],[3,1,2,0]])
 
