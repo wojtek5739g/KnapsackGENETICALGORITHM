@@ -20,7 +20,8 @@ def GeneticAlgorithmComp(model, cities_coordinates, num_of_individuals, num_of_i
         best_specimen = model.get_best_specimen()
         best_fits = np.append(best_fits, [best_specimen], axis = 0)
         print(f"iteration {i}: Distance: {1/model.fitness_function(best_specimen)}")
-    return model.fitness_function(best_fits[-1])
+    func = [model.fitness_function(i) for i in best_fits]
+    return (model.fitness_function(best_fits[-1]), max(func))
 
 def GeneticAlgorithm(num_of_cities, max_X_coord_value, max_Y_coord_value, num_of_individuals, num_of_iterations, mutation_coef, crossover_coef, tournament_size, selection):
     cities_coordinates = map_generation(num_of_cities, max_X_coord_value, max_Y_coord_value)

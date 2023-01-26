@@ -67,7 +67,7 @@ def comparison_fitness_function_plot(num_of_launches, best_specimensGEN, best_sp
 
     plt.show()
 
-def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensGA, num_of_cities, num_of_individuals,
+def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensGA,best_specimensGEN_min, num_of_cities, num_of_individuals,
         num_of_iterations, mutation_coef, crossover_coef, selection, tournament_size):
     '''
     Plotting comparison of best specimen of each launching of the program from two algorithms
@@ -81,6 +81,7 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
     launches = np.arange(1, num_of_launches+1, 1)
     ax.plot(launches, best_specimensGEN, color='green', label='Genetic Algorithm')
     ax.plot(launches, best_specimensGA, color='blue', label='Greedy Algorithm')
+    ax.plot(launches, best_specimensGEN_min, color='cyan', label='Best of Genetic Algorithm')
 
     if type(tournament_size) == None:
         text = f'Liczba miast: {num_of_cities}\nPopulacja: {num_of_individuals}\n'\
