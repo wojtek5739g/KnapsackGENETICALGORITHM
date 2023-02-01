@@ -64,9 +64,9 @@ def main(argv):
     args = parser.parse_args()
     cities_coordinates = map_generation(args.num_of_cities, args.max_X_coord_value, args.max_Y_coord_value)
     bestfits2 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 2, args.selection)
-    # bestfits3 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 3, args.selection)
-    # bestfits4 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 4, args.selection)
-    plot_progress(cities_coordinates, bestfits2, [0], [0])
+    bestfits3 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 3, args.selection)
+    bestfits4 = GeneticAlgorithm(cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 4, args.selection)
+    plot_progress(cities_coordinates, bestfits2, bestfits3, bestfits4)
 
 if __name__ == "__main__":
     main(sys.argv)

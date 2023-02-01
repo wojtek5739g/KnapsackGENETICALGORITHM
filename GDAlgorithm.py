@@ -34,12 +34,12 @@ def GDAlgorithmComp(cities_coordinates):
                     visited.add(k)
                     location = cities_coordinates[k]
                     break
-        print(specimen)
+        # print(specimen)
         if model.fitness_function(specimen) > model.fitness_function(best_specimen):
             best_specimen = specimen
     #print(1/model.fitness_function(best_specimen))
     return model.fitness_function(best_specimen)
-        
+
 def GDAlgorithm(cities_coordinates):
     model = Model(cities_coordinates, [])
     best_specimen = np.array([i for i in range(len(cities_coordinates))])

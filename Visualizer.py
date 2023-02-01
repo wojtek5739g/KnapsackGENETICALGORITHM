@@ -76,7 +76,7 @@ def comparison_fitness_function_plot(num_of_launches, best_specimensGEN, best_sp
 
     plt.show()
 
-def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensGA, num_of_cities, num_of_individuals,
+def comparison_distance_plot(num_of_launches, best_specimensGEN1, best_specimensGEN2, best_specimensGEN3, best_specimensGD, num_of_cities, num_of_individuals,
         num_of_iterations, mutation_coef, crossover_coef, selection, tournament_size):
     '''
     Plotting comparison of best specimen of each launching of the program from two algorithms
@@ -87,11 +87,22 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
     ax.minorticks_on()
     ax.grid(which='major', color='#DDDDDD', linewidth=1)
     ax.grid(which='minor', color='#DDDDDD', linestyle=':', linewidth=0.8)
-    launches = np.arange(1, num_of_launches+1, 1)
-    ax.plot(launches, best_specimensGEN, color='green', label='Genetic Algorithm')
-    ax.plot(launches, best_specimensGA, color='blue', label='Greedy Algorithm')
+    x_axis = np.arange(1, num_of_launches+1, 1)
+    launches = [x for x in x_axis]
+    print(launches)
+    # ax.plot(launches, best_specimensGEN1, color='red', label='Genetic Algorithm k=2')
+    # ax.plot(launches, best_specimensGEN2, color='purple', label='Genetic Algorithm k=3')
+    # ax.plot(launches, best_specimensGEN3, color='green', label='Genetic Algorithm k=4')
+    # ax.plot(launches, best_specimensGD, color='blue', label='Greedy Algorithm')
 
-    if type(tournament_size) == None:
+    ax.bar(x_axis-0.1, best_specimensGEN1, width=0.2, label='Genetic Algorithm k=2')
+    ax.bar(x_axis-0.2, best_specimensGEN2, width=0.2, label='Genetic Algorithm k=3')
+    ax.bar(x_axis+0.1, best_specimensGEN3, width=0.2, label='Genetic Algorithm k=4')
+    ax.bar(x_axis+0.2, best_specimensGD, width=0.2, label='Greedy Algorithm')
+
+    plt.xticks(x_axis, launches)
+
+    if type(tournament_size) != None:
         text = f'Liczba miast: {num_of_cities}\nPopulacja: {num_of_individuals}\n'\
                 f'Liczba iteracji: {num_of_iterations}\nWspółczynnik mutacji: {mutation_coef}\n'\
                 f'Współczynnik krzyżowania: {crossover_coef}\nRodzaj selekcji: {selection}'
@@ -106,6 +117,7 @@ def comparison_distance_plot(num_of_launches, best_specimensGEN, best_specimensG
     plt.title(text)
     ax.legend()
     plt.show()
+    plt.savefig('wykres.png', bbox_inches='tight')
 
 
 

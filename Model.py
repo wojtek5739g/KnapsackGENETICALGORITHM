@@ -135,9 +135,8 @@ class Model:
             #         max_index = elem[0]
             #print( np.array(self._population[list_tournament[0][0]]))
             new_population = np.append(new_population, np.array([self._population[list_tournament[0][0]]]), axis = 0)
-            
+
             # self._population[np.argmin([self.fitness_function(x) for x in self._population])] = self._population[max_index]
-        print(new_population[0])
         self._population = new_population
 
         for i in range(0,len(self._population), 2):

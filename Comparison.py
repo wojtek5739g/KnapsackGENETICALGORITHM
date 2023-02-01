@@ -20,24 +20,29 @@ def main(argv):
     parser.add_argument('--tournament_size', nargs='?', type=int, help='Tournament size')
     args = parser.parse_args()
 
-    best_specimensGEN = [] #fitness_function_values
-    best_specimensDistanceGEN = [] #distance_values
-    best_specimensGA = [] #fitness_function_values
-    best_specimensDistanceGA = [] #distance_values
-    cities_coordinates = map_generation(args.num_of_cities, args.max_X_coord_value, args.max_Y_coord_value)
-    GAmodel = Model(cities_coordinates, [], args.mutation_coef, args.crossover_coef, args.tournament_size)
+    best_specimensDistanceGEN1 = [] #distance_values
+    best_specimensDistanceGEN2 = []
+    best_specimensDistanceGEN3 = []
+    best_specimensDistanceGD = [] #distance_values
+
     for i in range(args.num_of_launches):
+        cities_coordinates = map_generation(args.num_of_cities, args.max_X_coord_value, args.max_Y_coord_value)
+        GAmodel = Model(cities_coordinates, [], args.mutation_coef, args.crossover_coef, args.tournament_size)
+
         print(f"{i+1} Launch: ")
-        GAbestSpecimen = GeneticAlgorithmComp(GAmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, args.tournament_size, args.selection)
+        GAbestSpecimen = GeneticAlgorithmComp(GAmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 2, args.selection)
+        best_specimensDistanceGEN1.append(1/GAbestSpecimen)
+        print(f"{i+1} Launch: ")
+        GAbestSpecimen = GeneticAlgorithmComp(GAmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 3, args.selection)
+        best_specimensDistanceGEN2.append(1/GAbestSpecimen)
+        print(f"{i+1} Launch: ")
+        GAbestSpecimen = GeneticAlgorithmComp(GAmodel, cities_coordinates, args.num_of_individuals, args.num_of_iterations, args.mutation_coef, args.crossover_coef, 4, args.selection)
+        best_specimensDistanceGEN3.append(1/GAbestSpecimen)
+
         GDbestSpecimen = GDAlgorithmComp(cities_coordinates)
-        best_specimensGEN.append(GAbestSpecimen)
-        best_specimensDistanceGEN.append(1/GAbestSpecimen)
-        best_specimensGA.append(GDbestSpecimen)
-        best_specimensDistanceGA.append(1/GDbestSpecimen)
-    comparison_fitness_function_plot(args.num_of_launches, best_specimensGEN, best_specimensGA,
-                                    args.num_of_cities, args.num_of_individuals, args.num_of_iterations,
-                                    args.mutation_coef, args.crossover_coef, args.selection, args.tournament_size)
-    comparison_distance_plot(args.num_of_launches, best_specimensDistanceGEN, best_specimensDistanceGA,
+        best_specimensDistanceGD.append(1/GDbestSpecimen)
+
+    comparison_distance_plot(args.num_of_launches, best_specimensDistanceGEN1, best_specimensDistanceGEN2, best_specimensDistanceGEN3, best_specimensDistanceGD,
                             args.num_of_cities, args.num_of_individuals, args.num_of_iterations,
                             args.mutation_coef, args.crossover_coef, args.selection, args.tournament_size)
 
